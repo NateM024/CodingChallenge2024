@@ -21,7 +21,7 @@ public class Main extends JPanel implements ActionListener{
 
         //add components to GUI
         //plans
-        planPanel = new PlanPanel();
+        planPanel = new PlanPanel(this);
         frame.add(planPanel, BorderLayout.NORTH);
 
         //addPlan button space 
@@ -46,13 +46,19 @@ public class Main extends JPanel implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == compare){
-            //System.err.println(planOne.getInterest());
             planPanel.doCalculations();
         }
         else if(e.getSource() == addPlan){
             planPanel.addPlan();
+            frame.revalidate();
+            frame.repaint();
             frame.pack();
         }
+    }
+
+    public void removePlan(int n){
+        planPanel.removePlan(n);
+        frame.pack();
     }
     public static void main(String[]args){
         new Main();

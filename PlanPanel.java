@@ -8,18 +8,20 @@ import javax.swing.JPanel;
 
 public class PlanPanel extends JPanel {
     private ArrayList<Plan> planList = new ArrayList<>();
-    private Plan firstPlan = new Plan(1);
+    private Main main;
+    private Plan firstPlan = new Plan(1, main);
 
-    public PlanPanel(){
+    public PlanPanel(Main m){
         setLayout((LayoutManager) new BoxLayout(this, BoxLayout.Y_AXIS));
         planList.add(firstPlan);
         add(firstPlan);
         setBorder(BorderFactory.createEmptyBorder());
+        main = m;
     }
 
     public void addPlan(){
         if(planList.size() < 5){
-            planList.add(new Plan(planList.size()+1));
+            planList.add(new Plan(planList.size()+1, main));
             add(planList.get(planList.size()-1));
             repaint();
             revalidate();
@@ -29,10 +31,21 @@ public class PlanPanel extends JPanel {
         }
     }
 
+    public void removePlan(int n){
+        remove(planList.get(n-1));
+        planList.remove(n-1);
+        for(int i = 0; i < planList.size(); i++){
+            planList.get(i).changeNumber(i+1);
+        }
+        repaint();
+        revalidate();
+    }
+
     public void doCalculations() {
-        // for(int i = 0; i < planList.size(); i++){
-        //     planList.get(i).doCalculations();
-        // }      
-        planList.get(0).doCalculations();    
+        for(int i = 0; i < planList.size(); i++){
+            planList.get(i).doCalculations();
+        }      
+        
+        Display display = new Display(planList.size(), planList);
     }
 }

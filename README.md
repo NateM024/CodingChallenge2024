@@ -1,4 +1,4 @@
-# Loan Comparison Tool (Java)
+# Loan Comparison Tool
 
 This is a Java-based console application that takes user input on different loan plans, performs calculations such as total repayment and interest, and displays a comparative overview to help users make informed financial decisions.
 
